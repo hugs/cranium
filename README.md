@@ -1,9 +1,7 @@
-Braindead CI
+Crainium CI
 ============
 
-**IMPORTANT: this software is not maintained anymore, please don't submit anymore pull requests except for bugfixes**
-
-**Braindead CI is a self-hosted continuous integration and deployment
+**Crainium CI (a fork of Braindead CI) is a self-hosted continuous integration and deployment
 server written in Node.js**. It can build and deploy your code
 automatically upon a push on Github, advertise builds on Hipchat and do that quickly and painlessly.
 
@@ -27,7 +25,7 @@ This assume you already have <a href="http://nodejs.org/" target="_blank">Node.j
 
 ```javascript
 // Install Braindead in two commands
-git clone git@github.com:louischatriot/braindead-ci.git
+git clone git@github.com:hugs/cranium.git
 npm install
 
 // Now test it (dev dependencies need to be installed)
@@ -72,3 +70,6 @@ We've been using Braindead CI for a few months at <a href="http://tldr.io" targe
 ## License
 MIT. Do whatever you want with the code.  
 (c) 2013 Louis Chatriot, louis@tldr.io
+
+Changes / updates coming soon!
+(c) 2014 Jason Huggins
