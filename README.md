@@ -1,7 +1,7 @@
 Cranium CI
 ============
 
-**Cranium CI (a fork of Braindead CI) is a self-hosted continuous integration and deployment
+**Cranium CI (a fork of [Braindead CI](https://github.com/louischatriot/braindead-ci)) is a self-hosted continuous integration and deployment
 server written in Node.js**. It can build and deploy your code
 automatically upon a push on Github, advertise builds on Hipchat and do that quickly and painlessly.
 
