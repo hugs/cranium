@@ -8,7 +8,7 @@ automatically upon a push on Github, advertise builds on Hipchat and do that qui
 ## What does it look like?
 <img src="assets/img/dashboard.png" alt="Dashboard">
 
-<img src="assets/img/assets/img/build-2.png" alt="Dashboard">
+<img src="assets/img/build-2.png" alt="Build status">
 
 ## What can it do?
 * Automatic build and deploy on a push to the Github repository
