@@ -8,6 +8,8 @@ automatically upon a push on Github, advertise builds on Hipchat and do that qui
 ## What does it look like?
 <img src="assets/img/dashboard.png" alt="Dashboard">
 
+<img src="assets/img/assets/img/build-2.png" alt="Dashboard">
+
 ## What can it do?
 * Automatic build and deploy on a push to the Github repository
 * Advertise build results on Hipchat
@@ -49,7 +51,7 @@ The path to Cranium's home page should be `/` (corresponding to a URL such as `h
 ## Hooking up Cranium and Github
 **1.** Cranium provides a URL, `/githubwebhook`, that Github can use POST to everytime a push occurs on the repo. In order to only allow Github to trigger builds on Cranium, you need to first create a token for Github in Cranium's Third-party services settings:
 
-<img src="http://i.imgur.com/iwXWwII.png" alt="Github token">
+<img src="assets/img/githubwebhook.png" alt="Github token">
 
 **2.** Then, you set up a WebHook on your Github repo ("Settings", "Service hooks"), using the `/githubwebhook` URL and the same token you defined in step 1 as the "token" querystring parameter like this:
 
