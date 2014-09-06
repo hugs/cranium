@@ -12,7 +12,7 @@ automatically upon a push on Github, advertise builds on Hipchat and do that qui
 * Automatic build and deploy on a push to the Github repository
 * Advertise build results on Hipchat
 * Very fast (starts up in less than a second, page load typically less than 500ms)
-* Easy to set up (create a job in 1 minute, set up hook to Github and Hipchat in 2)
+* Easy to set up (create a project in 1 minute, set up hook to Github and Hipchat in 2)
 * All-purpose: can build and deploy any type of project, whatever the technology used
   is
 * Smart support for Node.js projects (only reinstall dependencies if
@@ -60,7 +60,7 @@ The path to Cranium's home page should be `/` (corresponding to a URL such as `h
 ## Hooking up Cranium and Hipchat
 In the third-party services settings, enter your Hipchat API token and the name of the room you want Cranium to tell you build results. You can also specify the "Cranium root url" which is the url of the home page (e.g. https://ci.example.com), so that the messages in Hipchat contain links to the build results.
 
-Once set, you will be notified whenever a job was built (or skipped if disabled), and Hipchat will alert you in case the build fails.
+Once set, you will be notified whenever a project was built (or skipped if disabled), and Hipchat will alert you in case the build fails.
 
 
 ## Going forward

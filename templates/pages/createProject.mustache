@@ -2,11 +2,11 @@
 <br><br>
 
 {{#editMode}}
-<legend>Configure job</legend>
+<legend>Configure project</legend>
 {{/editMode}}
 
 {{>validationErrors}}
-<form class="form-horizontal" method="post" action="{{^editMode}}/jobs/new{{/editMode}}{{#editMode}}/jobs/{{currentName}}/edit{{/editMode}}">
+<form class="form-horizontal" method="post" action="{{^editMode}}/projects/new{{/editMode}}{{#editMode}}/projects/{{currentName}}/edit{{/editMode}}">
   <!-- Name -->
   <div class="control-group">
     <label class="control-label" for="name">Name</label>
@@ -15,16 +15,16 @@
     </div>
   </div>
 
-  <!-- Job type -->
+  <!-- Project type -->
   <div class="control-group">
-    <label class="control-label" for="jobType">Type</label>
+    <label class="control-label" for="projectType">Type</label>
     <div class="controls">
-      <select name="jobType" id="jobType">
-        {{#jobTypes}}
+      <select name="projectType" id="projectType">
+        {{#projectTypes}}
           <option value="{{.}}">{{.}}</option>
-        {{/jobTypes}}
+        {{/projectTypes}}
       </select>
-      &nbsp;<i class="icon-question-sign" data-content="If you choose 'Basic', you'll need to tell your test script to reinstall the dependencies. If this is a Node.js project, pick the corresponding option and Cranium will only reinstall dependencies if it needs to, saving you time." data-title="Job type"></i>
+      &nbsp;<i class="icon-question-sign" data-content="If you choose 'Basic', you'll need to tell your test script to reinstall the dependencies. If this is a Node.js project, pick the corresponding option and Cranium will only reinstall dependencies if it needs to, saving you time." data-title="Project type"></i>
     </div>
   </div>
 
@@ -33,7 +33,7 @@
     <label class="control-label" for="repoSSHUrl">Git repo SSH url<br><em style="color: #888;">(optional)</em></label>
     <div class="controls">
       <input type="text" class="input-xlarge" id="repoSSHUrl" placeholder="e.g. git@github.com:organization/repo.git" name="repoSSHUrl" value="{{userInput.repoSSHUrl}}">
-      &nbsp;<i class="icon-question-sign" data-content="Url of the Git remote repository for this job. Each build will begin by pulling the code from this remote. Leave empty if you don't want to use the CI capability (in that case, a build will only run the deploy script)." data-title="Repo SSH url"></i>
+      &nbsp;<i class="icon-question-sign" data-content="Url of the Git remote repository for this project. Each build will begin by pulling the code from this remote. Leave empty if you don't want to use the CI capability (in that case, a build will only run the deploy script)." data-title="Repo SSH url"></i>
     </div>
   </div>
 
@@ -51,7 +51,7 @@
     <label class="control-label" for="githubRepoUrl">Repo Github url<br><em style="color: #888;">(optional)</em></label>
     <div class="controls">
       <input type="text" class="input-xlarge" id="githubRepoUrl" placeholder="e.g. https://github.com/organization/repo" name="githubRepoUrl" value="{{userInput.githubRepoUrl}}">
-      &nbsp;<i class="icon-question-sign" data-content="Fill this in if you want this job to automatically be built upon a push to the Github repo. In that case, you also need to create a token for Github in the settings and set up a service hook for the Github repo, with WebHook URL https://ci.example.com/githubwebhook?token=your_token." data-title="Github repo url"></i>
+      &nbsp;<i class="icon-question-sign" data-content="Fill this in if you want this project to automatically be built upon a push to the Github repo. In that case, you also need to create a token for Github in the settings and set up a service hook for the Github repo, with WebHook URL https://ci.example.com/githubwebhook?token=your_token." data-title="Github repo url"></i>
     </div>
   </div>
 
@@ -85,8 +85,8 @@
 
 {{#editMode}}
 <br>
-<legend>Delete job</legend>
-<button id='delete-job' class="btn btn-danger">Delete job</button>
+<legend>Delete project</legend>
+<button id='delete-project' class="btn btn-danger">Delete project</button>
 <br><br>
 <br><br>
 {{/editMode}}
@@ -99,23 +99,23 @@ $('.icon-question-sign').popover({ animation: true
                                  , placement: 'bottom'
                                  });
 
-// Handle job deletion
-$('#delete-job').on('click', function () {
-  var sure = confirm('Are you sure you want to delete job {{userInput.name}}?');
+// Handle project deletion
+$('#delete-project').on('click', function () {
+  var sure = confirm('Are you sure you want to delete project {{userInput.name}}?');
 
   if (sure) {
-    $.ajax({ url: '/jobs/{{userInput.name}}'
+    $.ajax({ url: '/projects/{{userInput.name}}'
            , type: 'DELETE'
            })
      .done(function () {
-       alert('Job {{userInput.name}} deleted.');
+       alert('Project {{userInput.name}} deleted.');
        window.location = '/';
      });
   }
 });
 
-// Select the right jobType option
-$('#jobType option[value="{{userInput.jobType}}"]').attr('selected', 'true');
+// Select the right projectType option
+$('#projectType option[value="{{userInput.projectType}}"]').attr('selected', 'true');
 </script>
 
 <style type="text/css">

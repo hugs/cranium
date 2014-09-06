@@ -1,0 +1,65 @@
+<h2 class="title">{{project.name}}</h2>
+
+<hr style="margin-bottom: 5px;">
+<h4>Configuration <a href="/projects/{{project.name}}/edit">(change)</a></h4>
+{{#project.githubRepoUrl}}
+  Github repo url: <a href="{{project.githubRepoUrl}}" target="_blank">{{project.githubRepoUrl}}</a><br>
+{{/project.githubRepoUrl}}
+{{^project.githubRepoUrl}}
+  No Github repo url set, builds won't be triggered by a push on Github.<br>
+{{/project.githubRepoUrl}}
+
+{{#taskManagerOnly}}
+  Repo SSH url or branch not set, builds will only execute the deploy script.<br>
+{{/taskManagerOnly}}
+{{^taskManagerOnly}}
+  SSH url: {{project.repoSSHUrl}}<br>
+  Branch: {{project.branch}}
+{{/taskManagerOnly}}
+
+<hr style="margin-bottom: 5px; margin-top: 35px;">
+<h4>Status</h4>
+{{#project.enabled}}
+  Project is enabled. <button id='disable-project' class="btn btn-small">Disable it</button>
+{{/project.enabled}}
+{{^project.enabled}}
+  <strong>Project is disabled.</strong> <button id='enable-project' class="btn btn-small btn-primary">Enable it</button>
+{{/project.enabled}}
+
+<hr style="margin-bottom: 5px; margin-top: 35px;">
+<h4>Builds ({{project.numberOfBuilds}})&nbsp;&nbsp;&nbsp;<button class="btn btn-small" id="new-build" style="position: relative; top:-2px;">New build</button></h4>
+
+{{#project.previousBuilds}}
+<a href="/projects/{{project.name}}/builds/{{number}}" class="build-{{#success}}success{{/success}}{{^success}}fail{{/success}}">
+  Build #{{number}} ({{date}})
+</a><br>
+{{/project.previousBuilds}}
+
+
+<script>
+  var enabled = {{project.enabled}}
+    , $newBuildButton = $('#new-build')
+    ;
+
+  // Allow to build the project only if it is enabled
+  if (!enabled) {
+    $newBuildButton.addClass('disabled');
+  } else {
+    $newBuildButton.on('click', function () {
+      window.location = '/projects/{{project.name}}/builds/new';
+    });
+  }
+
+  // Manage enabled/disabled state change
+  $('#disable-project').on('click', function () {
+    $.ajax({ url: '/projects/{{project.name}}/disable'
+           , type: 'PUT'
+           }).done(function () { window.location.reload(true); });
+  });
+
+  $('#enable-project').on('click', function () {
+    $.ajax({ url: '/projects/{{project.name}}/enable'
+           , type: 'PUT'
+           }).done(function () { window.location.reload(true); });
+  });
+</script>

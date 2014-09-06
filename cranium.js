@@ -4,7 +4,7 @@
  * Main module
  */
 
-var Job = require('./lib/job')
+var Project = require('./lib/project')
   , config = require('./lib/config')
   , customUtils = require('./lib/customUtils')
   , async = require('async')
@@ -12,24 +12,24 @@ var Job = require('./lib/job')
   , path = require('path')
   , server = require('./server')
   , db = require('./lib/db')
-  , jobTypes = {}
+  , projectTypes = {}
   ;
 
 
 /**
- * Initialize the list of job types
- * For now no plugin system is implemented, we only look at modules in the ./lib/jobTypes directory
+ * Initialize the list of project types
+ * For now no plugin system is implemented, we only look at modules in the ./lib/projectTypes directory
  * @param {Function} callback Signature: err
  */
-function initializeJobTypes (callback) {
-  var nativeJobsTypesDirectory = './lib/jobTypes';
+function initializeProjectTypes (callback) {
+  var nativeProjectTypesDirectory = './lib/projectTypes';
 
-  fs.readdir(nativeJobsTypesDirectory, function (err, files) {
+  fs.readdir(nativeProjectTypesDirectory, function (err, files) {
     if (err) { return callback(err); }
 
     async.each(files, function (file, cb) {
-      var moduleName = path.join(nativeJobsTypesDirectory, file).replace(/\.js$/, '')
-        , jobType
+      var moduleName = path.join(nativeProjectTypesDirectory, file).replace(/\.js$/, '')
+        , projectType
         ;
 
       if (!moduleName.match(/^\.\//)) {
@@ -37,13 +37,13 @@ function initializeJobTypes (callback) {
       }
 
       try {
-        jobType = require(moduleName);
+        projectType = require(moduleName);
       } catch (e) {
-        jobType = {};
+        projectType = {};
       }
 
-      if (jobType.populateBuildingSequence) {
-        jobTypes[jobType.name] = jobType.populateBuildingSequence;
+      if (projectType.populateBuildingSequence) {
+        projectTypes[projectType.name] = projectType.populateBuildingSequence;
       }
 
       return cb();
@@ -53,10 +53,10 @@ function initializeJobTypes (callback) {
 
 
 /**
- * Get all job types
+ * Get all project types
  */
-function getAllJobTypes () {
-  return jobTypes;
+function getAllProjectTypes () {
+  return projectTypes;
 }
 
 
@@ -70,7 +70,7 @@ function init (callback) {
     db.initialize(function (err) {
       if (err) { return callback("Couldn't initialize the database"); }
 
-      initializeJobTypes(function (err) {
+      initializeProjectTypes(function (err) {
         server.launchServer(callback);
       });
     });
@@ -96,5 +96,5 @@ if (module.parent === null) {
 
 
 // Interface
-module.exports.getAllJobTypes = getAllJobTypes;
+module.exports.getAllProjectTypes = getAllProjectTypes;
 module.exports.init = init;

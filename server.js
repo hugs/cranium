@@ -6,7 +6,7 @@ var express = require('express')
   , http = require('http')
   , config = require('./lib/config')
   , expressServer
-  , Job = require('./lib/job')
+  , Project = require('./lib/project')
   , routes = require('./lib/routes')
   , middlewares = require('./lib/middlewares')
   , customUtils = require('./lib/customUtils')
@@ -71,21 +71,21 @@ beforeEach(expressServer, middlewares.commonRenderValues, middlewares.needToBeLo
   expressServer.post('/users/:login/edit', routes.users.editUser);
   expressServer.delete('/users/:login', routes.users.removeUser);
 
-  // Create, edit or show a job
-  expressServer.get('/jobs/new', routes.jobs.displayForm);
-  expressServer.post('/jobs/new', routes.jobs.create);
-  expressServer.get('/jobs/:name/edit', routes.jobs.populateFormForEdition, routes.jobs.displayForm);
-  expressServer.post('/jobs/:name/edit', routes.jobs.edit);
-  expressServer.get('/jobs/:name/homepage', routes.jobs.homepage);
-  expressServer.delete('/jobs/:name', routes.jobs.removeJob);
+  // Create, edit or show a project
+  expressServer.get('/projects/new', routes.projects.displayForm);
+  expressServer.post('/projects/new', routes.projects.create);
+  expressServer.get('/projects/:name/edit', routes.projects.populateFormForEdition, routes.projects.displayForm);
+  expressServer.post('/projects/:name/edit', routes.projects.edit);
+  expressServer.get('/projects/:name/homepage', routes.projects.homepage);
+  expressServer.delete('/projects/:name', routes.projects.removeProject);
 
-  expressServer.put('/jobs/:name/enable', routes.setEnabledState.enableJob);
-  expressServer.put('/jobs/:name/disable', routes.setEnabledState.disableJob);
+  expressServer.put('/projects/:name/enable', routes.setEnabledState.enableProject);
+  expressServer.put('/projects/:name/disable', routes.setEnabledState.disableProject);
 
   // Create or show a build
-  expressServer.get('/jobs/:name/builds/new', routes.build.newBuildWebpage);
-  expressServer.get('/jobs/:name/builds/:buildNumber', routes.build.buildRecap);
-  expressServer.get('/jobs/:name/builds/:buildNumber/log', routes.build.buildLog);
+  expressServer.get('/projects/:name/builds/new', routes.build.newBuildWebpage);
+  expressServer.get('/projects/:name/builds/:buildNumber', routes.build.buildRecap);
+  expressServer.get('/projects/:name/builds/:buildNumber/log', routes.build.buildLog);
 });
 
 // Handle payload delivered by Github
@@ -93,7 +93,7 @@ expressServer.post('/githubwebhook', routes.handleGithubWebhook);
 
 // Test
 expressServer.get('/current', function (req, res, next) {
-  res.json(200, executor.getCurrentJob());
+  res.json(200, executor.getCurrentProject());
 });
 
 

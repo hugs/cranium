@@ -1,18 +1,18 @@
 <h2 class="title">Dashboard</h2>
 <br>
 
-{{#noJobYet}}
+{{#noProjectYet}}
 <br>
 <div class="alert alert-info">
-Time to create your first job! Click on the 'New job' button on the left.
+Time to create your first project! Click on the 'New project' button on the left.
 </div>
-{{/noJobYet}}
+{{/noProjectYet}}
 
-{{^noJobYet}}
+{{^noProjectYet}}
 <table class="table">
 <thead>
   <tr>
-    <th>Job name</th>
+    <th>Project name</th>
     <th>Enabled?</th>
     <th>Last build</th>
     <th>When?</th>
@@ -22,7 +22,7 @@ Time to create your first job! Click on the 'New job' button on the left.
   {{#dashboardData}}
   <tr>
     <td>
-      <a href="/jobs/{{name}}/homepage" style="color: #333;">{{name}}</a>
+      <a href="/projects/{{name}}/homepage" style="color: #333;">{{name}}</a>
     </td>
 
     <td>
@@ -48,4 +48,4 @@ Time to create your first job! Click on the 'New job' button on the left.
   {{/dashboardData}}
   </tbody>
 </table>
-{{/noJobYet}}
+{{/noProjectYet}}

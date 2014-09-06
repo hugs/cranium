@@ -37,7 +37,7 @@ body {
 }
 
 
-/* Styling links to builds in job recap page */
+/* Styling links to builds in project recap page */
 .build-success {
   color: #468847;
 }

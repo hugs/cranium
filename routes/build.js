@@ -4,7 +4,7 @@
 
 
 var config = require('../lib/config')
-  , Job = require('../lib/job')
+  , Project = require('../lib/project')
   , executor = require('../lib/executor')
   , moment = require('moment')
   ;
@@ -14,11 +14,11 @@ function newBuildWebpage (req, res, next) {
     , partials = { content: '{{>pages/newBuild}}' }
     ;
 
-  Job.getJob(req.params.name, function (err, job) {
-    if (err || !job) { return res.redirect(302, '/'); }   // Shouldn't happen anyway
+  Project.getProject(req.params.name, function (err, project) {
+    if (err || !project) { return res.redirect(302, '/'); }   // Shouldn't happen anyway
 
-    values.job = job;
-    executor.registerBuild(job.name);
+    values.project = project;
+    executor.registerBuild(project.name);
 
     return res.render('layout', { values: values
                                 , partials: partials
@@ -28,21 +28,21 @@ function newBuildWebpage (req, res, next) {
 
 
 function buildLog (req, res, next) {
-  Job.getJob(req.params.name, function (err, job) {
-    if (err || !job) { return res.redirect(302, '/'); }   // Shouldn't happen anyway
+  Project.getProject(req.params.name, function (err, project) {
+    if (err || !project) { return res.redirect(302, '/'); }   // Shouldn't happen anyway
 
-    job.getBuild(req.params.buildNumber, function (err, buildData) {
+    project.getBuild(req.params.buildNumber, function (err, buildData) {
       if (!err) { return res.json(200, { log: buildData.log }); }
-      var currentJob = executor.getCurrentJob();
+      var currentProject = executor.getCurrentProject();
 
-      if (req.params.name === currentJob.name && parseInt(req.params.buildNumber, 10) === currentJob.buildNumber) {
-        return res.json(206, { log: currentJob.log });
+      if (req.params.name === currentProject.name && parseInt(req.params.buildNumber, 10) === currentProject.buildNumber) {
+        return res.json(206, { log: currentProject.log });
       }
 
       if (executor.isABuildQueued(req.params.name)) {   // We're lying a bit here but this case shouldn't happen
         return res.json(201, { message: 'Build scheduled' });
       } else {
-        return res.json(404, { message: 'This job has no build for this number, and no queued' });
+        return res.json(404, { message: 'This project has no build for this number, and no queued' });
       }
     });
   });
@@ -54,12 +54,12 @@ function buildRecap (req, res, next) {
     , partials = { content: '{{>pages/buildRecap}}' }
     ;
 
-  Job.getJob(req.params.name, function (err, job) {
-    if (err || !job) { return res.redirect(302, '/'); }   // Shouldn't happen anyway
+  Project.getProject(req.params.name, function (err, project) {
+    if (err || !project) { return res.redirect(302, '/'); }   // Shouldn't happen anyway
 
-    values.job = job;
+    values.project = project;
 
-    job.getBuild(req.params.buildNumber, function (err, buildData) {
+    project.getBuild(req.params.buildNumber, function (err, buildData) {
       // If build can't be found, it means it hasnt completed yet but is scheduled
       if (err) { return currentBuild(req, res, next); }
 

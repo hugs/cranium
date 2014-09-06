@@ -36,17 +36,17 @@
             Cranium is idle
           {{/idle}}
           {{^idle}}
-            Building {{currentJobName}}
+            Building {{currentProjectName}}
           {{/idle}}
           <br><br>
-          {{#someJobsQueued}}
+          {{#someProjectsQueued}}
             In the queue:
             <ul>
-              {{#queuedJobs}}
+              {{#queuedProjects}}
                 <li>{{.}}</li>
-              {{/queuedJobs}}
+              {{/queuedProjects}}
             </ul>
-          {{/someJobsQueued}}
+          {{/someProjectsQueued}}
 
         </div>
 

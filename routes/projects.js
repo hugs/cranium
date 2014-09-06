@@ -1,10 +1,10 @@
 /**
- * Create a new job
+ * Create a new project
  */
 
 
 var config = require('../lib/config')
-  , Job = require('../lib/job')
+  , Project = require('../lib/project')
   , validation = require('../lib/validation')
   , customUtils = require('../lib/customUtils')
   , moment = require('moment')
@@ -13,28 +13,28 @@ var config = require('../lib/config')
   ;
 
 /**
- * Display all information about a job, its configuration, build results and enabled state
+ * Display all information about a project, its configuration, build results and enabled state
  */
 function homepage (req, res, next) {
   var values = req.renderValues || {}
-    , partials = { content: '{{>pages/jobHomepage}}' }
+    , partials = { content: '{{>pages/projectHomepage}}' }
     ;
 
-  Job.getJob(req.params.name, function (err, job) {
-    if (err || !job) { return res.redirect(302, '/'); }   // Shouldn't happen anyway
+  Project.getProject(req.params.name, function (err, project) {
+    if (err || !project) { return res.redirect(302, '/'); }   // Shouldn't happen anyway
 
-    values.job = job;
-    values.job.numberOfBuilds = job.nextBuildNumber - 1;
-    values.job.previousBuilds = customUtils.objectToArrayInOrder(job.previousBuilds);
-    values.job.previousBuilds.sort(function (a, b) { return (new Date(b.date)).getTime() - (new Date(a.date)).getTime(); });
+    values.project = project;
+    values.project.numberOfBuilds = project.nextBuildNumber - 1;
+    values.project.previousBuilds = customUtils.objectToArrayInOrder(project.previousBuilds);
+    values.project.previousBuilds.sort(function (a, b) { return (new Date(b.date)).getTime() - (new Date(a.date)).getTime(); });
 
-    values.job.previousBuilds.forEach(function (build) {
+    values.project.previousBuilds.forEach(function (build) {
       build.date = moment(build.date).format('MMMM Do YYYY HH:mm:ss');
     });
 
     values.taskManagerOnly = false;
-    if (!job.repoSSHUrl || job.repoSSHUrl.length === 0) { values.taskManagerOnly = true; }
-    if (!job.branch || job.branch.length === 0) { values.taskManagerOnly = true; }
+    if (!project.repoSSHUrl || project.repoSSHUrl.length === 0) { values.taskManagerOnly = true; }
+    if (!project.branch || project.branch.length === 0) { values.taskManagerOnly = true; }
 
     return res.render('layout', { values: values
                                 , partials: partials
@@ -45,15 +45,15 @@ function homepage (req, res, next) {
 
 function displayForm (req, res, next) {
   var values = req.renderValues || {}
-    , partials = { content: '{{>pages/createJob}}' }
+    , partials = { content: '{{>pages/createProject}}' }
     ;
 
-  values.jobTypes = Object.keys(app.getAllJobTypes()).sort();
+  values.projectTypes = Object.keys(app.getAllProjectTypes()).sort();
 
   if (values.editMode) {
-    values.title = "Edit job " + values.userInput.name;
+    values.title = "Edit project " + values.userInput.name;
   } else {
-    values.title = "Create a new job";
+    values.title = "Create a new project";
   }
 
   return res.render('layout', { values: values
@@ -63,11 +63,11 @@ function displayForm (req, res, next) {
 
 
 function populateFormForEdition (req, res, next) {
-  Job.getJob(req.params.name, function (err, job) {
-    if (err || !job) { return res.redirect(302, '/'); }   // Shouldn't happen anyway
+  Project.getProject(req.params.name, function (err, project) {
+    if (err || !project) { return res.redirect(302, '/'); }   // Shouldn't happen anyway
 
-    req.renderValues.userInput = job;
-    req.renderValues.currentName = job.name;
+    req.renderValues.userInput = project;
+    req.renderValues.currentName = project.name;
     req.renderValues.editMode = true;
     return next();
   });
@@ -79,7 +79,7 @@ function create (req, res, next) {
     , errors = []
     ;
 
-  Job.createJob(req.body, function (err) {
+  Project.createProject(req.body, function (err) {
     if (err) {
       values.validationErrors = true;
       values.errors = err.validationErrors;
@@ -87,7 +87,7 @@ function create (req, res, next) {
       return displayForm(req, res, next);
     }
 
-    return res.redirect(302, '/jobs/' + req.body.name + '/homepage');
+    return res.redirect(302, '/projects/' + req.body.name + '/homepage');
   });
 }
 
@@ -101,10 +101,10 @@ function edit (req, res, next) {
   values.editMode = true;
   values.currentName = currentName;
 
-  Job.getJob(currentName, function (err, job) {
-    if (err || !job) { return res.redirect(302, '/'); }   // Shouldn't happen anyway
+  Project.getProject(currentName, function (err, project) {
+    if (err || !project) { return res.redirect(302, '/'); }   // Shouldn't happen anyway
 
-    job.edit(req.body, function (err) {
+    project.edit(req.body, function (err) {
       if (err) {
         if (err.validationErrors) {
           values.validationErrors = true;
@@ -117,14 +117,14 @@ function edit (req, res, next) {
         return displayForm(req, res, next);
       }
 
-      res.redirect(302, '/jobs/' + req.body.name + '/homepage');
+      res.redirect(302, '/projects/' + req.body.name + '/homepage');
     });
   });
 }
 
 
-function removeJob (req, res, next) {
-  Job.removeJob(req.params.name, function (err) {
+function removeProject (req, res, next) {
+  Project.removeProject(req.params.name, function (err) {
     if (err) { return res.send(500); }
 
     return res.send(200);
@@ -138,4 +138,4 @@ module.exports.populateFormForEdition = populateFormForEdition;
 module.exports.displayForm = displayForm;
 module.exports.create = create;
 module.exports.edit = edit;
-module.exports.removeJob = removeJob;
+module.exports.removeProject = removeProject;
