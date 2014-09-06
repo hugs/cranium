@@ -1,5 +1,5 @@
 {{#firstTimeUse}}
-  <h2 class="title">Welcome to Braindead CI!</h2>
+  <h2 class="title">Welcome to Cranium CI!</h2>
 {{/firstTimeUse}}
 {{^firstTimeUse}}
   <h2 class="title">Settings</h2>
@@ -46,16 +46,16 @@ Settings updated.
     <label class="control-label" for="hipchatRoom">Hipchat room<br><em style="color: #888;">(optional)</em></label>
     <div class="controls">
       <input type="text" class="input-xlarge" id="hipchatRoom" placeholder="e.g. Deployment" name="hipchatRoom" value="{{settings.hipchatRoom}}">
-      &nbsp;<i class="icon-question-sign" data-content="The Hipchat room you want Braindead to use to tell you the build results." data-title="Hipchat room"></i>
+      &nbsp;<i class="icon-question-sign" data-content="The Hipchat room you want Cranium to use to tell you the build results." data-title="Hipchat room"></i>
     </div>
   </div>
 
-  <!-- Braindead root url -->
+  <!-- Cranium root url -->
   <div class="control-group">
-    <label class="control-label" for="braindeadRootUrl">Braindead root url<br><em style="color: #888;">(optional)</em></label>
+    <label class="control-label" for="craniumRootUrl">Cranium root url<br><em style="color: #888;">(optional)</em></label>
     <div class="controls">
-      <input type="text" class="input-xlarge" id="braindeadRootUrl" placeholder="e.g. https://ci.example.com" name="braindeadRootUrl" value="{{settings.braindeadRootUrl}}">
-      &nbsp;<i class="icon-question-sign" data-content="Braindead's root url as seen from the outside. Used to give you permalinks to build results in the Hipchat notifications." data-title="Braindead root url"></i>
+      <input type="text" class="input-xlarge" id="craniumRootUrl" placeholder="e.g. https://ci.example.com" name="craniumRootUrl" value="{{settings.craniumRootUrl}}">
+      &nbsp;<i class="icon-question-sign" data-content="Cranium's root url as seen from the outside. Used to give you permalinks to build results in the Hipchat notifications." data-title="Cranium root url"></i>
     </div>
   </div>
 

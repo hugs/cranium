@@ -32,7 +32,7 @@ expressServer.use(middlewares.serveFavicon);
 expressServer.use(express.bodyParser());
 expressServer.use(express.cookieParser());
 expressServer.use(express.session({ secret: 'thats some secret'
-                                  , key: 'braindeadsess'
+                                  , key: 'craniumsess'
                                   , cookie: { path: '/'
                                             , httpOnly: true
                                             , maxAge: 365 * 24 * 3600 * 1000   // One year

@@ -24,7 +24,7 @@ function update (req, res, next) {
                     , githubToken: req.body.githubToken
                     , hipchatToken: req.body.hipchatToken
                     , hipchatRoom: req.body.hipchatRoom
-                    , braindeadRootUrl: req.body.braindeadRootUrl
+                    , craniumRootUrl: req.body.craniumRootUrl
                     };
 
   db.settings.update({ type: 'generalSettings' }, newSettings, { multi: false, upsert: true }, function (err) {
