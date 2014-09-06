@@ -72,4 +72,5 @@ Don't hesitate to submit issues or pull requests!
 ## License
 MIT. Do whatever you want with the code.  
 (c) 2013 Louis Chatriot, louis@tldr.io
+
 (c) 2014 Jason Huggins, jrhuggins@gmail.com
