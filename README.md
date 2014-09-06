@@ -8,6 +8,8 @@ automatically upon a push on Github, advertise builds on Hipchat and do that qui
 ## What does it look like?
 <img src="assets/img/dashboard.png" alt="Dashboard">
 
+<img src="assets/img/project-homepage.png" alt="Project homepage">
+
 <img src="assets/img/build-2.png" alt="Build status">
 
 ## What can it do?
