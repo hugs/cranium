@@ -37,7 +37,7 @@ make test
 
 // You're done, now launch it:
 ./cranium.js            // On default port (2008)
-./crainium.js -p 2009   // On port 2009
+./cranium.js -p 2009   // On port 2009
 
 // Check out possible command-line options
 ./cranium.js -h
