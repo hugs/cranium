@@ -21,6 +21,7 @@
     "type": "git",
     "url": "https://github.com/hugs/cranium.git"
   },
+  "bugs": "https://github.com/hugs/cranium/issues",
   "dependencies": {
     "h4e": "0.3.0",
     "express": "3.0.6",
@@ -45,5 +46,5 @@
     "cranium": "./cranium"
   },
   "main": "cranium",
-  "licence": "MIT"
+  "license": "MIT"
 }
