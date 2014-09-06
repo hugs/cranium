@@ -6,7 +6,7 @@ server written in Node.js**. It can build and deploy your code
 automatically upon a push on Github, advertise builds on Hipchat and do that quickly and painlessly.
 
 ## What does it look like?
-<img src="http://i.imgur.com/Ojq7w9Y.png" alt="Dashboard">
+<img src="assets/img/dashboard.png" alt="Dashboard">
 
 ## What can it do?
 * Automatic build and deploy on a push to the Github repository
