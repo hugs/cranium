@@ -29,7 +29,7 @@ This assume you already have <a href="http://nodejs.org/" target="_blank">Node.j
 
 ```javascript
 // Install Cranium in two commands
-git clone git@github.com:hugs/cranium.git
+git clone https://github.com/hugs/cranium.git
 npm install
 
 // Now test it (dev dependencies need to be installed)
